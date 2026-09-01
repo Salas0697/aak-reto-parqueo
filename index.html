@@ -11,8 +11,15 @@
 <body>
 <div id="load"><div><b>CON-VIVE mejor</b><span>Preparando tu reto de parqueo...</span></div></div>
 <script>
-Promise.all(['v2a.txt','v2b.txt','v2c.txt'].map(f=>fetch(f,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(f);return r.text()})))
-.then(parts=>{document.open();document.write(parts.join(''));document.close()})
+Promise.all(['v2a.txt','v2b.txt','v2c.txt'].map(f=>fetch(f+'?v=16',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(f);return r.text()})))
+.then(parts=>{
+  let game=parts.join('');
+  /* Hotfix: the V2 car was initially outside its collision bounds, so the first pedal press immediately stopped it. */
+  game=game.replace('translate(222 294) rotate(168)','translate(222 276) rotate(168)')
+           .replace('let x=222,y=294,heading=168,','let x=222,y=276,heading=168,')
+           .replace('x=222;y=294;heading=168;','x=222;y=276;heading=168;');
+  document.open();document.write(game);document.close();
+})
 .catch(()=>{document.getElementById('load').innerHTML='<div><b>No pudimos cargar el reto</b><span>Actualiza la página para intentarlo nuevamente.</span></div>'});
 </script>
 </body>
