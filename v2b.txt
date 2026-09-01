@@ -1,0 +1,80 @@
+</head>
+<body>
+<main>
+<section id="gameScreen">
+  <div class="header">
+    <div class="headerTop">
+      <div class="brandbox"><img id="brandLogo" class="logoimg" alt="CON-VIVE mejor"></div>
+      <div id="timer" class="timer">01:00</div>
+    </div>
+    <div class="hTitle">Reto de parqueo</div>
+    <p class="hSub">Parquéate sin golpear, sin bloquear y bien alineado.</p>
+  </div>
+  <div class="panel">
+    <div class="gameCard">
+      <div class="lot">
+        <svg viewBox="0 0 390 360" role="img" aria-label="Reto de parqueo visto desde arriba">
+          <defs>
+            <linearGradient id="road5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#999fa3"/><stop offset="1" stop-color="#747b80"/></linearGradient>
+            <linearGradient id="dark5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#414a53"/><stop offset=".5" stop-color="#11181f"/><stop offset="1" stop-color="#303840"/></linearGradient>
+            <linearGradient id="blue5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#65aeff"/><stop offset=".48" stop-color="#2067ca"/><stop offset="1" stop-color="#073c86"/></linearGradient>
+            <linearGradient id="glass5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8d0e3"/><stop offset="1" stop-color="#263a48"/></linearGradient>
+          </defs>
+          <rect width="390" height="360" fill="url(#road5)"/><rect width="390" height="34" fill="#344b2c"/>
+          <circle cx="30" cy="17" r="18" fill="#4e7438"/><circle cx="76" cy="16" r="20" fill="#315a28"/><circle cx="124" cy="16" r="20" fill="#537a3a"/><circle cx="175" cy="16" r="22" fill="#385e2b"/><circle cx="228" cy="16" r="21" fill="#4e7337"/><circle cx="280" cy="16" r="20" fill="#315729"/><circle cx="332" cy="16" r="23" fill="#507739"/>
+          <rect y="34" width="390" height="10" fill="#50565a"/>
+          <g stroke="#fafaf5" stroke-width="4"><path d="M30 44 V190"/><path d="M130 44 V190"/><path d="M260 44 V190"/><path d="M360 44 V190"/></g>
+          <rect x="137" y="44" width="116" height="146" fill="#2067ca" opacity=".08"/>
+          <rect x="141" y="48" width="108" height="11" rx="3" fill="#222"/><path d="M145 49 l18 9 M177 49 l18 9 M209 49 l18 9 M237 49 l12 6" stroke="#ffd84e" stroke-width="7"/>
+          <g transform="translate(80 117)"><ellipse cy="8" rx="34" ry="67" fill="#000" opacity=".2"/><rect x="-31" y="-61" width="62" height="122" rx="24" fill="url(#dark5)"/><rect x="-23" y="-40" width="46" height="35" rx="11" fill="url(#glass5)"/><rect x="-23" y="8" width="46" height="30" rx="11" fill="url(#glass5)" opacity=".7"/><path d="M-20 52 H-7 M7 52 H20" stroke="#bd2827" stroke-width="5" stroke-linecap="round"/></g>
+          <g transform="translate(310 117)"><ellipse cy="8" rx="34" ry="67" fill="#000" opacity=".2"/><rect x="-31" y="-61" width="62" height="122" rx="24" fill="url(#dark5)"/><rect x="-23" y="-40" width="46" height="35" rx="11" fill="url(#glass5)"/><rect x="-23" y="8" width="46" height="30" rx="11" fill="url(#glass5)" opacity=".7"/><path d="M-20 52 H-7 M7 52 H20" stroke="#bd2827" stroke-width="5" stroke-linecap="round"/></g>
+          <g id="player" transform="translate(222 294) rotate(168)">
+            <ellipse cy="9" rx="34" ry="68" fill="#000" opacity=".22"/>
+            <rect x="-32" y="-63" width="64" height="126" rx="24" fill="url(#blue5)" stroke="#07356e" stroke-width="2"/>
+            <rect x="-24" y="-42" width="48" height="36" rx="11" fill="url(#glass5)"/>
+            <rect x="-24" y="9" width="48" height="32" rx="11" fill="url(#glass5)" opacity=".76"/>
+            <path d="M-20 -55 Q0 -63 20 -55" fill="none" stroke="#82c1ff" stroke-width="3"/>
+            <path d="M-22 54 H-9 M9 54 H22" stroke="#e83a35" stroke-width="5" stroke-linecap="round"/>
+            <g id="frontWheels" fill="#12171b"><rect x="-36" y="-45" width="8" height="22" rx="3"/><rect x="28" y="-45" width="8" height="22" rx="3"/></g>
+            <rect x="-36" y="30" width="8" height="22" rx="3" fill="#12171b"/><rect x="28" y="30" width="8" height="22" rx="3" fill="#12171b"/>
+          </g>
+        </svg>
+      </div>
+      <div class="micro">Usa la cabrilla y los pedales para entrar al espacio.</div>
+      <div id="status" class="status" aria-live="polite">Gira un poco la cabrilla y empieza con reversa.</div>
+      <div class="controls">
+        <div class="pedcol">
+          <button id="accelerator" type="button" class="pedal accelerator" aria-label="Acelerador"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button>
+          <div class="pedlabel">Acelerador</div>
+        </div>
+        <div class="wheelcol">
+          <div class="lr"><span>Izquierda</span><span>Derecha</span></div>
+          <div id="wheel" class="wheel" role="slider" tabindex="0" aria-label="Cabrilla" aria-valuemin="-150" aria-valuemax="150" aria-valuenow="0">
+            <div class="ring"></div><div class="spoke s1"></div><div class="spoke s2"></div><div class="spoke s3"></div><div class="hub">AAK</div><div class="marker"></div>
+          </div>
+          <div class="whint">Arrastra la cabrilla · ← → también sirven</div>
+        </div>
+        <div class="pedcol">
+          <button id="reverse" type="button" class="pedal reverse" aria-label="Reversa"><span class="bars"><i></i><i></i><i></i><i></i><i></i></span></button>
+          <div class="pedlabel">Reversa</div>
+        </div>
+      </div>
+      <button id="reset" type="button" class="reset">Reiniciar reto</button>
+    </div>
+  </div>
+</section>
+
+<section id="refs" class="refs">
+  <div class="refCard">
+    <img id="refImg" class="refImg" alt="Imagen del tip" src="">
+    <div class="refBody">
+      <div class="refKicker" id="refKicker">Tip 1 de 4</div>
+      <h2 class="refTitle" id="refTitle"></h2>
+      <p class="refText" id="refText"></p>
+      <div class="refBottom">
+        <div id="dots" class="dots"></div>
+        <button id="next" type="button" class="next">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</section>
