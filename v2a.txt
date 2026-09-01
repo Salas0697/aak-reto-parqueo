@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="description" content="Tu espacio. Nuestro espacio. Completa el reto de parqueo CON-VIVE mejor y descubre 4 hábitos para convivir mejor en AAK.">
+<meta name="theme-color" content="#00264e">
+<meta property="og:title" content="Reto de parqueo CON-VIVE mejor | AAK">
+<meta property="og:description" content="¿Logras el parqueo perfecto en 1 minuto? 4 hábitos para CON-VIVIR mejor.">
+<meta property="og:type" content="website">
+<title>Reto de parqueo CON-VIVE mejor | AAK</title>
+<style>
+:root{--navy:#00264e;--blue:#2067ca;--yellow:#ffd84e;--ink:#142033;--bg:#eef2f5;--card:#ffffff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+body{min-height:100svh}
+main{max-width:430px;margin:0 auto;padding:0}
+.header{background:var(--navy);color:#fff;padding:10px 14px 8px;border-bottom-left-radius:20px;border-bottom-right-radius:20px;position:sticky;top:0;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.headerTop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brandbox{background:#fff;border-radius:12px;padding:6px 10px;display:inline-flex;align-items:center;max-width:68%}
+.logoimg{display:block;width:150px;max-width:100%;height:auto}
+.timer{background:#fff;color:var(--navy);padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hTitle{font-size:21px;line-height:1.03;margin:8px 0 2px;font-weight:800}
+.hSub{font-size:12px;color:#d5e5f5;margin:0}
+.panel{padding:10px}
+.gameCard{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:0 3px 10px rgba(0,38,78,.08)}
+.lot svg{display:block;width:100%;height:auto;background:#878d91}
+.micro{padding:8px 12px 0;text-align:center;font-size:12px;color:#4f6174}
+.status{margin:6px 10px 0;background:#eef4fb;color:var(--navy);border-radius:12px;padding:8px 10px;font-size:11.5px;font-weight:700;text-align:center;min-height:31px;display:flex;align-items:center;justify-content:center}
+.status.warn{background:#fff5cf;color:#654d00}
+.status.good{background:#edf6e8;color:#31540b}
+.controls{display:grid;grid-template-columns:1fr 1.28fr 1fr;align-items:end;gap:8px;padding:8px 10px 10px}
+.pedcol{text-align:center}
+.pedal{width:64px;max-width:100%;height:92px;border:0;border-radius:18px;display:inline-grid;place-items:center;touch-action:none;cursor:pointer;box-shadow:inset 0 0 0 2px rgba(0,0,0,.2),0 4px 10px rgba(0,38,78,.14);transition:transform .06s ease}
+.pedal.pressed{transform:translateY(4px) scale(.985)}
+.accelerator{background:linear-gradient(145deg,#5f9deb,#2067ca)}
+.reverse{background:linear-gradient(145deg,#194b82,#00264e)}
+.bars{width:38px;display:grid;gap:6px}
+.bars i{height:4px;border-radius:3px;background:rgba(0,0,0,.46)}
+.pedlabel{font-size:11px;font-weight:800;color:var(--navy);margin-top:4px}
+.wheelcol{text-align:center;min-width:0}
+.lr{display:flex;justify-content:space-between;font-size:10px;color:#687789;margin:0 4px 4px}
+.wheel{position:relative;width:120px;height:120px;max-width:100%;border-radius:50%;margin:auto;touch-action:none;cursor:grab;outline:none;transform:rotate(0deg)}
+.wheel:active{cursor:grabbing}
+.ring{position:absolute;inset:0;border-radius:50%;border:14px solid #161a1e;box-shadow:inset 0 0 0 3px #4a5056,0 4px 10px rgba(0,0,0,.2)}
+.spoke{position:absolute;left:50%;top:50%;width:51px;height:12px;border-radius:8px;background:#282d32;transform-origin:0 50%}
+.s1{transform:rotate(0)} .s2{transform:rotate(120deg)} .s3{transform:rotate(240deg)}
+.hub{position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50%;transform:translate(-50%,-50%);background:#252a2f;display:grid;place-items:center;color:var(--blue);font-weight:950;letter-spacing:-.08em;font-size:15px;box-shadow:inset 0 0 0 2px #4e545a}
+.marker{position:absolute;left:50%;top:-1px;width:6px;height:18px;border-radius:4px;background:var(--blue);transform:translateX(-50%)}
+.whint{font-size:9.5px;line-height:1.25;color:#7b8794;margin-top:4px}
+.reset{display:block;margin:0 auto 10px;min-height:34px;border:0;border-radius:10px;background:#eef4fb;color:var(--navy);font:inherit;font-size:11px;font-weight:800;padding:7px 12px;cursor:pointer}
+.refs{display:none;padding:10px}
+.refs.show{display:block}
+.refCard{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 3px 10px rgba(0,38,78,.08)}
+.refImg{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#dfe8f1}
+.refBody{padding:14px 14px 12px}
+.refKicker{font-size:12px;font-weight:800;color:var(--blue);margin-bottom:6px}
+.refTitle{font-size:24px;line-height:1.02;color:var(--navy);font-weight:850;margin:0 0 8px}
+.refText{font-size:15px;line-height:1.45;color:#526274;margin:0}
+.refBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.dots{display:flex;gap:6px} .dot{width:7px;height:7px;border-radius:50%;background:#cbd7e2} .dot.on{background:var(--blue)}
+.next{min-height:42px;border:0;border-radius:12px;background:var(--blue);color:white;font:inherit;font-size:13px;font-weight:850;padding:9px 16px;cursor:pointer}
+.finish{display:none;padding:10px}
+.finish.show{display:block}
+.finishCard{background:var(--navy);color:#fff;border-radius:20px;padding:18px}
+.finishK{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#b9d6ff}
+.finish h2{font-size:23px;line-height:1.08;margin:6px 0 8px}
+.finish p{font-size:14px;line-height:1.45;color:#dce9f6;margin:0 0 14px}
+.commit{width:100%;min-height:46px;border:0;border-radius:13px;background:var(--yellow);color:var(--navy);font:inherit;font-weight:900;cursor:pointer}
+.mbh{font-family:Georgia,serif;color:var(--yellow);font-size:18px;margin-top:10px}
+@media (max-height: 820px) {
+  .header{padding:8px 12px 6px}
+  .hTitle{font-size:19px;margin-top:6px}
+  .pedal{height:84px}
+  .wheel{width:110px;height:110px}
+  .ring{border-width:13px}
+  .status{min-height:28px;padding:6px 9px}
+  .micro{font-size:11px}
+}
+</style>
