@@ -3,63 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Reto de parqueo CON-VIVE mejor | AAK</title>
-<meta name="description" content="Tu espacio. Nuestro espacio. Completa el reto de parqueo CON-VIVE mejor y descubre 4 hábitos para convivir mejor en AAK.">
 <meta name="theme-color" content="#00264e">
-<meta property="og:title" content="Reto de parqueo CON-VIVE mejor | AAK">
-<meta property="og:description" content="Tu espacio. Nuestro espacio. ¿Logras el parqueo perfecto en 1 minuto? Una iniciativa CON-VIVE mejor | AAK.">
-<meta property="og:type" content="website">
-<style>
-html,body{margin:0;width:100%;height:100%;background:#eef2f5;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
-#game{display:block;width:100%;height:100dvh;border:0;background:#eef2f5}
-#loading{position:fixed;inset:0;display:grid;place-items:center;background:#00264e;color:#fff;z-index:10;text-align:center;padding:24px;transition:opacity .25s ease}
-#loading.hide{opacity:0;pointer-events:none}
-#loading strong{font-size:21px;display:block;margin-bottom:8px}
-#loading span{font-size:13px;color:#d8e7f6}
-</style>
+<meta name="description" content="Reto de parqueo CON-VIVE mejor | AAK">
+<title>Reto de parqueo CON-VIVE mejor | AAK</title>
+<style>html,body{margin:0;width:100%;height:100%;background:#00264e;font-family:Arial,sans-serif}#load{position:fixed;inset:0;display:grid;place-items:center;color:white;text-align:center;padding:24px}#load b{display:block;font-size:22px;margin-bottom:8px}#load span{font-size:13px;color:#d5e5f5}</style>
 </head>
 <body>
-<div id="loading"><div><strong>CON-VIVE mejor</strong><span>Preparando tu reto de parqueo...</span></div></div>
-<iframe id="game" src="game.html" title="Reto de parqueo CON-VIVE mejor"></iframe>
+<div id="load"><div><b>CON-VIVE mejor</b><span>Preparando tu reto de parqueo...</span></div></div>
 <script>
-const frame=document.getElementById('game');
-const loading=document.getElementById('loading');
-async function brandGame(){
-  try{
-    const logoB64=(await fetch('convive-logo.txt',{cache:'no-store'}).then(r=>r.text())).trim();
-    const d=frame.contentDocument;
-    if(!d)return;
-    d.title='Reto de parqueo CON-VIVE mejor | AAK';
-    const logo=d.querySelector('.logoimg');
-    if(logo){
-      logo.src='data:image/webp;base64,'+logoB64;
-      logo.alt='CON-VIVE mejor';
-      logo.style.filter='none';
-      logo.style.width='168px';
-      logo.style.maxWidth='100%';
-      logo.style.height='auto';
-      logo.style.background='#fff';
-      logo.style.padding='7px 10px';
-      logo.style.borderRadius='13px';
-      logo.style.boxSizing='border-box';
-      logo.style.boxShadow='0 2px 8px rgba(0,0,0,.10)';
-    }
-    const sub=d.querySelector('.sub');
-    if(sub)sub.textContent='Reto de parqueo CON-VIVE mejor';
-    const finalTitle=d.querySelector('#finish h2');
-    if(finalTitle)finalTitle.textContent='Con-vivir mejor también se refleja en cómo parqueamos.';
-    const finalText=d.querySelector('#finish p');
-    if(finalText)finalText.textContent='Gracias por hacer tu parte para mantener un parqueadero más ordenado, respetuoso y alineado con CON-VIVE mejor en AAK.';
-    const footer=d.querySelector('.mbh');
-    if(footer)footer.textContent='Una iniciativa CON-VIVE mejor | AAK';
-    const style=d.createElement('style');
-    style.textContent='@media(max-width:405px){.logoimg{width:145px!important}}';
-    d.head.appendChild(style);
-  }catch(e){console.error('Branding load error',e)}
-  loading.classList.add('hide');
-  setTimeout(()=>loading.remove(),300);
-}
-frame.addEventListener('load',brandGame);
+Promise.all(['v2a.txt','v2b.txt','v2c.txt'].map(f=>fetch(f,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(f);return r.text()})))
+.then(parts=>{document.open();document.write(parts.join(''));document.close()})
+.catch(()=>{document.getElementById('load').innerHTML='<div><b>No pudimos cargar el reto</b><span>Actualiza la página para intentarlo nuevamente.</span></div>'});
 </script>
 </body>
 </html>
