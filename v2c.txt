@@ -1,0 +1,55 @@
+
+<section id="finish" class="finish">
+  <div class="finishCard">
+    <div class="finishK">Reto completado</div>
+    <h2>Con-vivir mejor también se refleja en cómo parqueamos.</h2>
+    <p>Gracias por hacer tu parte para mantener un parqueadero más ordenado, respetuoso y alineado con CON-VIVE mejor en AAK.</p>
+    <button id="commit" type="button" class="commit">Listo, lo aplico</button>
+    <div class="mbh">Una iniciativa CON-VIVE mejor | AAK</div>
+  </div>
+</section>
+</main>
+<script>
+(() => {
+fetch('convive-logo.txt',{cache:'force-cache'}).then(r=>r.text()).then(t=>document.getElementById('brandLogo').src='data:image/webp;base64,'+t.trim()).catch(()=>{});
+const refsData = [
+  {img:'tip-1.txt', title:'No bloquees a otro compañero', text:'Antes de bajarte, revisa que ningún vehículo quede atrapado por tu parqueo.'},
+  {img:'tip-2.txt', title:'Evita golpes al abrir la puerta', text:'Deja suficiente espacio lateral para que todos puedan entrar y salir sin dañar otro vehículo.'},
+  {img:'tip-3.txt', title:'Hasta atrás y bien alineado', text:'Usa todo el espacio del parqueadero y deja el vehículo derecho para mejorar la circulación.'},
+  {img:'tip-4.txt', title:'Si te llaman, sal a moverlo', text:'Si por alguna razón bloqueas a alguien, responde rápido y corre tu vehículo sin demora.'}
+];
+const car=document.getElementById('player'),wheel=document.getElementById('wheel'),accelerator=document.getElementById('accelerator'),reverse=document.getElementById('reverse'),status=document.getElementById('status'),timer=document.getElementById('timer'),game=document.getElementById('gameScreen'),refs=document.getElementById('refs'),finish=document.getElementById('finish');
+let x=222,y=294,heading=168,wheelRotation=0,steerAngle=0,speed=0,drive=0,dragging=false,lastX=0,last=performance.now(),timeLeft=60,timerId=null,timerStarted=false,done=false,refIndex=0;
+const wheelBase=80;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const norm=a=>{while(a>180)a-=360;while(a<-180)a+=360;return a};
+function setStatus(t,type=''){status.textContent=t;status.className='status'+(type?' '+type:'')}
+function startTimer(){if(timerStarted||done)return;timerStarted=true;timerId=setInterval(()=>{timeLeft=Math.max(0,timeLeft-1);timer.textContent='00:'+String(timeLeft).padStart(2,'0');if(timeLeft===0){clearInterval(timerId);timerId=null;drive=0;setStatus('Se acabó el minuto. Reinicia y vuelve a intentarlo.','warn')}},1000)}
+function renderCar(){car.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${heading.toFixed(1)})`)}
+function renderWheel(){wheel.style.transform=`rotate(${wheelRotation}deg)`;wheel.setAttribute('aria-valuenow',String(Math.round(wheelRotation)));steerAngle=(wheelRotation/150)*33;const fw=document.getElementById('frontWheels');fw.children[0].setAttribute('transform',`rotate(${steerAngle} -32 -34)`);fw.children[1].setAttribute('transform',`rotate(${steerAngle} 32 -34)`)}
+wheel.addEventListener('pointerdown',e=>{e.preventDefault();startTimer();dragging=true;lastX=e.clientX;try{wheel.setPointerCapture(e.pointerId)}catch(_ ){}});
+wheel.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX;lastX=e.clientX;wheelRotation=clamp(wheelRotation+dx*1.35,-150,150);renderWheel()});
+const stopWheel=()=>dragging=false;wheel.addEventListener('pointerup',stopWheel);wheel.addEventListener('pointercancel',stopWheel);wheel.addEventListener('lostpointercapture',stopWheel);
+wheel.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();wheelRotation=clamp(wheelRotation-10,-150,150);renderWheel()}if(e.key==='ArrowRight'){e.preventDefault();wheelRotation=clamp(wheelRotation+10,-150,150);renderWheel()}if(e.key==='Home'){e.preventDefault();wheelRotation=0;renderWheel()}});
+function pedalDown(el,dir,e){if(done||timeLeft===0)return;e.preventDefault();startTimer();drive=dir;el.classList.add('pressed');try{el.setPointerCapture(e.pointerId)}catch(_ ){}}
+function pedalUp(el,dir){if(drive===dir)drive=0;el.classList.remove('pressed')}
+accelerator.addEventListener('pointerdown',e=>pedalDown(accelerator,1,e));accelerator.addEventListener('pointerup',()=>pedalUp(accelerator,1));accelerator.addEventListener('pointercancel',()=>pedalUp(accelerator,1));accelerator.addEventListener('lostpointercapture',()=>pedalUp(accelerator,1));
+reverse.addEventListener('pointerdown',e=>pedalDown(reverse,-1,e));reverse.addEventListener('pointerup',()=>pedalUp(reverse,-1));reverse.addEventListener('pointercancel',()=>pedalUp(reverse,-1));reverse.addEventListener('lostpointercapture',()=>pedalUp(reverse,-1));
+function corners(px,py,ang){const w=64,h=126,r=ang*Math.PI/180,c=Math.cos(r),s=Math.sin(r);return[[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]].map(([dx,dy])=>[px+dx*c-dy*s,py+dx*s+dy*c])}
+function collision(){for(const[cx,cy]of corners(x,y,heading)){if(cx<12||cx>378||cy<44||cy>352)return true;if(cy<189&&((cx>34&&cx<126)||(cx>264&&cx<356)))return true}return false}
+function angleError(){return Math.abs(Math.abs(norm(heading))-180)}
+function updateFeedback(){if(y>245){if(Math.abs(wheelRotation)<15)setStatus('Gira suavemente la cabrilla y mantén reversa.');else setStatus('Bien. Sigue entrando y prepara el contravolante.')}else if(Math.abs(x-195)>34)setStatus('Vas demasiado cerca de un carro. Corrige hacia el centro.','warn');else if(angleError()>11)setStatus('Ya estás dentro. Endereza la cabrilla poco a poco.');else setStatus('Casi. Cabrilla al centro y continúa hasta el fondo.')}
+function checkSuccess(){if(angleError()<=7&&x>=173&&x<=217&&y>=110&&y<=151&&!collision()){done=true;drive=0;speed=0;if(timerId){clearInterval(timerId);timerId=null}timer.textContent='✓';setStatus('¡Parqueo perfecto!','good');setTimeout(()=>{game.style.display='none';refs.classList.add('show');showReflection()},500);return true}return false}
+function physics(now){const dt=Math.min(.032,(now-last)/1000);last=now;if(!done&&timeLeft>0){const target=drive===1?35:drive===-1?-31:0;const response=drive===0?8.5:3.7;speed+=(target-speed)*Math.min(1,dt*response);if(drive===0&&Math.abs(speed)<.3)speed=0;if(Math.abs(speed)>.05){const ox=x,oy=y,oh=heading;const h=heading*Math.PI/180,s=steerAngle*Math.PI/180;x+=Math.sin(h)*speed*dt;y-=Math.cos(h)*speed*dt;heading=norm(heading+(speed/wheelBase)*Math.tan(s)*dt*180/Math.PI);if(collision()){x=ox;y=oy;heading=oh;speed=0;drive=0;accelerator.classList.remove('pressed');reverse.classList.remove('pressed');setStatus('Tocaste otro carro. Corrige la cabrilla y vuelve a intentarlo.','warn')}else{renderCar();updateFeedback();checkSuccess()}}}requestAnimationFrame(physics)}
+function reset(){if(timerId){clearInterval(timerId);timerId=null}x=222;y=294;heading=168;wheelRotation=0;steerAngle=0;speed=0;drive=0;dragging=false;timeLeft=60;timerStarted=false;done=false;refIndex=0;timer.textContent='01:00';accelerator.classList.remove('pressed');reverse.classList.remove('pressed');renderCar();renderWheel();setStatus('Gira un poco la cabrilla y empieza con reversa.');refs.classList.remove('show');finish.classList.remove('show');game.style.display='block'}
+document.getElementById('reset').addEventListener('click',reset);
+function showDots(){const d=document.getElementById('dots');d.innerHTML='';refsData.forEach((_,i)=>{const s=document.createElement('span');s.className='dot'+(i===refIndex?' on':'');d.appendChild(s)})}
+const imgCache={}; async function loadB64(path){if(!imgCache[path])imgCache[path]=fetch(path,{cache:'force-cache'}).then(r=>r.text()).then(t=>'data:image/webp;base64,'+t.trim());return imgCache[path]}
+function showReflection(){const item=refsData[refIndex];loadB64(item.img).then(src=>document.getElementById('refImg').src=src);document.getElementById('refKicker').textContent=`Tip ${refIndex+1} de 4`;document.getElementById('refTitle').textContent=item.title;document.getElementById('refText').textContent=item.text;document.getElementById('next').textContent=refIndex===3?'Finalizar':'Siguiente';showDots()}
+document.getElementById('next').addEventListener('click',()=>{if(refIndex<3){refIndex++;showReflection()}else{refs.classList.remove('show');finish.classList.add('show')}});
+document.getElementById('commit').addEventListener('click',e=>{e.currentTarget.textContent='Compromiso registrado ✓';e.currentTarget.disabled=true});
+renderCar();renderWheel();requestAnimationFrame(physics);
+})();
+</script>
+</body>
+</html>
