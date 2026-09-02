@@ -14,7 +14,7 @@
 fetch('convive-logo.txt',{cache:'force-cache'}).then(r=>r.text()).then(t=>document.getElementById('brandLogo').src='data:image/webp;base64,'+t.trim()).catch(()=>{});
 const refsData = [
   {img:'tip-1.txt', title:'No bloquees a otro compañero', text:'Antes de bajarte, revisa que ningún vehículo quede atrapado por tu parqueo.'},
-  {img:'tip-2.txt?v=22', title:'Evita golpes al abrir la puerta', text:'Deja suficiente espacio lateral para que todos puedan entrar y salir sin dañar otro vehículo.'},
+  {img:'tip-2-door-v22.txt?v=23', title:'Evita golpes al abrir la puerta', text:'Deja suficiente espacio lateral para que todos puedan entrar y salir sin dañar otro vehículo.'},
   {img:'tip-3.txt', title:'Hasta atrás y bien alineado', text:'Usa todo el espacio del parqueadero y deja el vehículo derecho para mejorar la circulación.'},
   {img:'tip-4.txt', title:'Si te llaman, sal a moverlo', text:'Si por alguna razón bloqueas a alguien, responde rápido y corre tu vehículo sin demora.'}
 ];
@@ -44,7 +44,7 @@ function physics(now){const dt=Math.min(.032,(now-last)/1000);last=now;if(!done&
 function reset(){if(timerId){clearInterval(timerId);timerId=null}x=222;y=294;heading=168;wheelRotation=0;steerAngle=0;speed=0;drive=0;dragging=false;timeLeft=60;timerStarted=false;done=false;refIndex=0;timer.textContent='01:00';accelerator.classList.remove('pressed');reverse.classList.remove('pressed');renderCar();renderWheel();setStatus('Gira un poco la cabrilla y empieza con reversa.');refs.classList.remove('show');finish.classList.remove('show');game.style.display='block'}
 document.getElementById('reset').addEventListener('click',reset);
 function showDots(){const d=document.getElementById('dots');d.innerHTML='';refsData.forEach((_,i)=>{const s=document.createElement('span');s.className='dot'+(i===refIndex?' on':'');d.appendChild(s)})}
-const imgCache={}; async function loadB64(path){if(!imgCache[path])imgCache[path]=fetch(path,{cache:'force-cache'}).then(r=>r.text()).then(t=>'data:image/webp;base64,'+t.trim());return imgCache[path]}
+const imgCache={}; async function loadB64(path){if(!imgCache[path])imgCache[path]=fetch(path,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error(path);return r.text()}).then(t=>'data:image/webp;base64,'+t.trim());return imgCache[path]}
 function showReflection(){const item=refsData[refIndex];const img=document.getElementById('refImg');if(item.img.startsWith('data:')){img.src=item.img}else{loadB64(item.img).then(src=>img.src=src).catch(()=>{img.removeAttribute('src')})}document.getElementById('refKicker').textContent=`Tip ${refIndex+1} de 4`;document.getElementById('refTitle').textContent=item.title;document.getElementById('refText').textContent=item.text;document.getElementById('next').textContent=refIndex===3?'Finalizar':'Siguiente';showDots()}
 document.getElementById('next').addEventListener('click',()=>{if(refIndex<3){refIndex++;showReflection()}else{refs.classList.remove('show');finish.classList.add('show')}});
 document.getElementById('commit').addEventListener('click',e=>{e.currentTarget.textContent='Compromiso registrado ✓';e.currentTarget.disabled=true});
