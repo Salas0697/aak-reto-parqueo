@@ -14,7 +14,7 @@
 fetch('convive-logo.txt',{cache:'force-cache'}).then(r=>r.text()).then(t=>document.getElementById('brandLogo').src='data:image/webp;base64,'+t.trim()).catch(()=>{});
 const refsData = [
   {img:'tip-1.txt', title:'No bloquees a otro compañero', text:'Antes de bajarte, revisa que ningún vehículo quede atrapado por tu parqueo.'},
-  {img:'tip-2-door-v22.txt?v=24', title:'Evita golpes al abrir la puerta', text:'Deja suficiente espacio lateral para que todos puedan entrar y salir sin dañar otro vehículo.'},
+  {img:'tip-2-hq-v25.txt?v=25', title:'Evita golpes al abrir la puerta', text:'Deja suficiente espacio lateral para que todos puedan entrar y salir sin dañar otro vehículo.'},
   {img:'tip-3.txt', title:'Hasta atrás y bien alineado', text:'Usa todo el espacio del parqueadero y deja el vehículo derecho para mejorar la circulación.'},
   {img:'tip-4.txt', title:'Si te llaman, sal a moverlo', text:'Si por alguna razón bloqueas a alguien, responde rápido y corre tu vehículo sin demora.'}
 ];
