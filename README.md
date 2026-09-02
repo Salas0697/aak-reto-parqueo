@@ -34,6 +34,8 @@ Concept, experience design, interaction definition, content structure and AI-ass
 
 This repository represents a public demonstration project. Other internal tools, workflows and corporate projects are maintained in private repositories where appropriate.
 
+AAK names, trademarks, logos and brand assets remain the property of AAK. This repository does not grant a license to reuse corporate brand assets or project materials.
+
 ---
 
 **Making Better Happen™**
