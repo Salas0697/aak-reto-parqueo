@@ -11,7 +11,8 @@
 <title>Reto de parqueo CON-VIVE mejor | AAK</title>
 <style>
 :root{--navy:#00264e;--blue:#2067ca;--yellow:#ffd84e;--ink:#142033;--bg:#eef2f5;--card:#ffffff}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+img,svg,button{-webkit-user-drag:none;user-drag:none}
 html,body{margin:0;padding:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
 body{min-height:100svh}
 main{max-width:430px;margin:0 auto;padding:0}
